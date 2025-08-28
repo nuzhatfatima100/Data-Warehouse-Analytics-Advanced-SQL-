@@ -116,6 +116,9 @@ GO
 
 select * from gold.fact_sales;
 
+
+-- Sales Over Time
+	
 select year(order_date) as order_year,
 sum(sales_amount) as amt,
 count(distinct customer_key) as customer_count,
@@ -146,6 +149,7 @@ group by FORMAT(order_date,'yyyy-MM')
 order by FORMAT(order_date,'yyyy-MM');
 
 -- Cummulative query / moving average over time
+-- Moving Average (Price) & Running Total (Sales)
 
 with cte as (
 select DATETRUNC(MONTH,order_date) as order_month,
@@ -174,8 +178,7 @@ sum(total_amount) over(order by order_year) as running_total_sales
 from cte
 order by DATETRUNC(YEAR,order_year) ;
 
-
-
+-- Analyze the yearly performance of products by comparing their sales to both the average sales performance and the previos years sales of the product
 with cte as (
 select YEAR(f.order_date) AS order_YEAR,
 p.product_name,
@@ -199,6 +202,8 @@ else 'No change' end as diff_flag
 from cte
 order by product_name,order_YEAR;
 
+-- Part to whole 
+-- which categories contribute the most to the overall sales
 with cte as(
 SELECT sum(f.sales_amount) as total_sales , p.category from  gold.fact_sales f  left join 
 gold.dim_products p on f.product_key=p.product_key
@@ -222,6 +227,7 @@ select segments,count(product_key) as total_count from cte
 group by cte.segments
 order by count(product_key);
 
+-- Customer Segmentation (VIP / Regular / New)
 with cte as(select 
 c.customer_key,
 sum(f.sales_amount) as total_spending,
@@ -367,4 +373,5 @@ case when total_orders=0 then 0 else total_sales/total_orders end as avg_order_v
 case when lifespan =0 then total_sales 
 else total_sales/lifespan end as avg_monthly_spend
 from product_aggregation;
+
 
