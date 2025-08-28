@@ -27,10 +27,6 @@ It includes a **star schema** (fact + dimensions), **advanced SQL** (CTEs, windo
 - `gold.dim_customers` — customer attributes (name, demographics, create/birth dates, etc.)
 - `gold.dim_products` — product attributes (name, category, subcategory, cost, product_line)
 
-> Tip: keep an ER/Star schema diagram in `/docs/schema.png` and reference it here:
->
-> ![Star Schema](docs/schema.png)
-
 ---
 
 ## 🚀 Getting Started
