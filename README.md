@@ -1,6 +1,6 @@
 # Data Warehouse Analytics (Advanced SQL)
 
-A hands-on mini data warehouse built with **SQL Server** to transform transactional data into business insights.  
+A data warehouse built with **SQL Server** to transform transactional data into business insights.  
 It includes a **star schema** (fact + dimensions), **advanced SQL** (CTEs, window functions, views), and **reporting queries** for customer and product analytics.
 
 ---
